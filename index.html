@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-teal-500">
+    <div class="container justify-center items-center mx-auto flex-col flex h-screen">
+        <div class="bg-white/80 backdrop-blur-md w-auto h-auto inline-block p-4 rounded-2xl shadow-xl">
+          <h1 class="text-center mt-3 font-serif font-light">Person of the Day</h1>
+          <img src="" alt="" id="image" class="w-22 rounded-full text-center items-center mx-auto">
+          <p class="mt-3 font-bold text-center" id="name"></span></p>
+          <p class="mt-3 font-extralight text-center" id="gender"></span></p>
+          <p class="mt-3 font-extralight text-center" id="email"></span></p>
+          <p class="mt-3 font-extralight text-center" id="reg"></span></p>
+          <div class="">
+            <p class="text-xs italic font-extralight mt-3 justify-center text-yellow-600 items-center mx-auto flex" id="phone"></p>
+          </div>
+        </div>
+        <div>
+          <button
+              type="submit"
+              class="bg-teal-400 text-white rounded-2xl p-3 text-center text-sm mt-3 w-72"
+              id="btn"
+            >
+              New User
+          </button>
+        </div>
+        
+      </div>
+
+    
+    <script>
+        // let persons = {}
+        // fetch("https://randomuser.me/api/")
+        
+        //     .then(function(results) {
+        //         return results.json();
+        //     })
+        //     .then(function(data) {
+        //     persons = data
+        //     console.log(persons);
+        //     getPerson()
+        //     })
+            
+
+        // document.getElementById("btn").addEventListener("click", function gen(){
+        //         getPerson()
+        // });
+
+        // const getPerson = (data) => {
+        //     const person = persons[Math.floor(Math.random() * 2)];
+        //         document.getElementById("user").innerHTML = person;
+        //         // document.getElementById("email").innerHTML = `~ ${person.email}`;
+        // };
+
+        function getUsers() {
+            fetch("https://randomuser.me/api/?results=2")
+            .then((results) => {
+                return results.json();
+            })
+            .then((data) => {
+              const user = data.results[0];
+              console.log(user)
+              displayUser(user)
+              // Access your data here
+            });
+        }
+        document.getElementById("btn").addEventListener("click", function gen(){
+                 getUsers()
+         });
+        const displayUser = (user) => {
+            const image = document.getElementById("image");
+            const name = document.getElementById("name").innerHTML = `Name: ${user.name.title} ${user.name.first} ${user.name.last}`;
+            const phone = document.getElementById("phone").innerHTML = `Phone:  ${user.phone}`
+            const gender = document.getElementById("gender").innerHTML = `Gender: ${user.gender}`
+            const email = document.getElementById("email").innerHTML = `Email: ${user.email}`
+            const location = document.getElementById("reg").innerHTML = `Location: ${user.location.city}, ${user.location.country}`
+            image.setAttribute('src', `${user.picture.large}`)
+
+            
+        };
+  
+        getUsers();
+    </script>
+</body>
+</html>
